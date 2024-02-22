@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+
+
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/login-style.css">
+
+
+
+
+</head>
+<body>
+<div class="wrapper">
+    <form name="f" method="post" action="/process_login">
+        <h1>Login</h1>
+
+
+        <div class="input-box">
+            <input type="text" name="username" id="username" placeholder="email" required>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAABD0lEQVRIS8VUAQ3CMBDcHICD4QAHgANQADgABQwFSEACOAAHgAImYQ7gjrQJe9Z+oTT75NKk3e7+/vvNs8SRJ+bPQgWGSGQOjIEecAXWQKUlGCIwBcneEEu+GTaOPhFNgNmeADpoixqbA4Bra2gCLAkFfOF1oQmswLxTBLY4L391wPofUjpgDy5AkaoH5HW5YGOXQNQtsonzFm0ANp1h54CrN7Qma/+r550KsMELYGSaLIetMqW6YS1dVlwOWGvef9cESz7bk7M8aBMgOe8+HXwbE/zQEJEC2tujCfLq9t8/kgIhT4Mm0ng6pABLw8GKCQ4eH8BXSIE79ooYdvzbKJMUeESSfyTe6aD9xUxyB0+1GSkZ0oyAxwAAAABJRU5ErkJggg=="/>
+        </div>
+
+
+        <div class="input-box">
+            <input type="password" name="password" id="password" placeholder="password" required>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAA7klEQVRIS2NkoDFgpLH5DMRa4AB0SD4QKwCxABBfAOJGKI3XjcRYUAA0oR5qMLphhUCBCfhsIGSBAVDzfqgBIBcfAOIPQBwAxP1QcUeoOFZ7CFmwHmoYyPAGNBNAPgNZsgGIA3H5gpAF96HhrgikH6AZAoqL91AfCZJrwX+oRlwOISRPMBURMoCQ/MBYAEo584EYRJMCQCkMltLg+rCFLShZOpBiMpJaUEIAJQi8FsDClUw7UIMdmw9GLUAJldEgwpbSBj6IYCUoOfkAVNMZEspooFwMKioUSLQBVFQsBOIFhCwg0Vz8yglVOBRbBgAUDioZH1HJzwAAAABJRU5ErkJggg=="/>
+        </div>
+
+
+        <br/>
+
+        <input type="submit" value="Войти" class="btn">
+
+        <div th:if="${param.error}" style="color: red" class="alert alert-error">
+            Неправильные имя или пароль
+        </div>
+
+        <div class="register-link" >
+            <p> Еще нет аккаунта? <a
+                    href="/auth/registration">Зарегистрироваться</a></p>
+        </div>
+
+    </form>
+</div>
+</body>
+</html>
