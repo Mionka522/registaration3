@@ -27,6 +27,7 @@ public class UserService {
         return foundPerson.orElse(null);
     }
 
+
     public List<User> findAll() {
         List<User> foundPerson = userRepository.findAll();
         return foundPerson;

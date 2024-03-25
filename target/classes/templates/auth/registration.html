@@ -1,52 +1,65 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Registration</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
 </head>
 <body>
 <div class="wrapper">
-    <form th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
+    <form id="registrationForm">
         <div class="h">
             <h1>Регистрация</h1>
         </div>
         <div class="input-box">
-            <input type="text" th:field="*{userName}" id="userName" placeholder="Введите имя пользователя" required/>
-            <div style="color:red" th:if="${#fields.hasErrors('userName')}" th:errors="*{userName}" >username Error</div>
+            <input type="text" id="userName" placeholder="Введите имя пользователя" required/>
         </div>
-
         <div class="input-box">
-            <input type="text" th:field="*{password}" id="password" placeholder="Введите пароль" required/>
-            <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">year Error</div>
+            <input type="password" id="password" placeholder="Введите пароль" required/>
         </div>
-
-
         <div class="input-box">
-
-            <input type="text" th:field="*{email}" id="email" placeholder="Введите email" required/>
-            <div style="color:red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</div>
+            <input type="email" id="email" placeholder="Введите email" required/>
         </div>
-
         <br/>
-        <input type="radio" id="USER" th:field="*{role}" value="USER">
+        <input type="radio" id="USER" name="role" value="ROLE_USER">
         <label for="USER">я хочу только проходить опросы (USER) </label>
         <br/>
-        <input type="radio" id="ADMIN" th:field="*{role}" value="ADMIN">
+        <input type="radio" id="ADMIN" name="role" value="ROLE_ADMIN">
         <label for="ADMIN">я хочу создавать опросы и проходить их (ADMIN)</label><br>
-        <div style="color:red" th:if="${#fields.hasErrors('role')}" th:errors="*{role}">role Error</div>
         <br/>
-
-        <br/>
-
-
         <input type="submit" value="Зарегистрироваться!" class="btn"/>
         <br/>
-
-
     </form>
 </div>
+
+<script>
+    document.getElementById("registrationForm").addEventListener("submit", function(event) {
+        event.preventDefault();
+
+        const formData = {
+            userName: document.getElementById("userName").value,
+            password: document.getElementById("password").value,
+            email: document.getElementById("email").value,
+            role: document.querySelector('input[name="role"]:checked').value
+        };
+
+        fetch('/auth/registration', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.jwt) {
+                    window.location.href = "/login";
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    });
+</script>
+
 </body>
 </html>
